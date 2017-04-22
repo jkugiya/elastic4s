@@ -32,16 +32,11 @@ object HighlightFieldBuilderFn {
       field.numOfFragments.foreach(builder.field("number_of_fragments", _))
       field.order.foreach(builder.field("order", _))
       field.phraseLimit.foreach(builder.field("phrase_limit", _))
-      if (field.postTags.nonEmpty || field.preTags.nonEmpty) {
-        if (field.postTags.isEmpty)
-          builder.field("post_tags", util.Arrays.asList("</em>"))
-        else
-          builder.field("post_tags", field.postTags.asJava)
-
-        if (field.preTags.isEmpty)
-          builder.field("pre_tags", util.Arrays.asList("<em>"))
-        else
-          builder.field("pre_tags", field.preTags.asJava)
+      if (field.postTags.nonEmpty) {
+        builder.field("post_tags", field.postTags.asJava)
+      }
+      if (field.preTags.nonEmpty) {
+        builder.field("pre_tags", field.preTags.asJava)
       }
       field.requireFieldMatch.foreach(builder.field("require_field_match", _))
       builder.endObject()

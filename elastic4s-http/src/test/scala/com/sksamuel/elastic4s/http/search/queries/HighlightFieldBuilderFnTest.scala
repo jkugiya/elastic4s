@@ -126,28 +126,6 @@ class HighlightFieldBuilderFnTest extends FunSuite with Matchers {
     HighlightFieldBuilderFn(Iterable(highlight)).string() shouldBe
       """{"fields":{"text":{}}}"""
   }
-  test("em tag will be generated as post tag if specified pre tag only") {
-    // TODO But why? that is proper query.
-    // Given
-    val highlight =
-      HighlightFieldDefinition("text")
-        .preTag("<p>", "<b>")
-        .postTag(Nil)
-    // Then
-    HighlightFieldBuilderFn(Iterable(highlight)).string() shouldBe
-      """{"fields":{"text":{"post_tags":["</em>"],"pre_tags":["<p>","<b>"]}}}"""
-  }
-  test("em tag will be generated as pre tag if specified post tag only") {
-    // TODO But why? that is proper query.
-    // Given
-    val highlight =
-    HighlightFieldDefinition("text")
-      .preTag(Nil)
-      .postTag("<p>", "<b>")
-    // Then
-    HighlightFieldBuilderFn(Iterable(highlight)).string() shouldBe
-      """{"fields":{"text":{"post_tags":["<p>","<b>"],"pre_tags":["<em>"]}}}"""
-  }
   test("specified post & pre tags will be generated") {
     val highlight =
       HighlightFieldDefinition("text")
